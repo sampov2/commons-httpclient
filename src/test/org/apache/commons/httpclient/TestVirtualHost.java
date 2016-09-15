@@ -41,6 +41,7 @@ import junit.framework.TestSuite;
 
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.httpclient.params.HttpConnectionParams;
+import org.apache.commons.httpclient.protocol.DefaultProtocolProvider;
 import org.apache.commons.httpclient.protocol.Protocol;
 import org.apache.commons.httpclient.protocol.ProtocolSocketFactory;
 import org.apache.commons.httpclient.server.HttpService;
@@ -199,7 +200,8 @@ public class TestVirtualHost extends HttpClientTestBase {
         int port = this.server.getLocalPort();
 
         Protocol testhttp = new Protocol("http", new VirtualSocketFactory(host, port), port);
-        Protocol.registerProtocol("testhttp", testhttp);
+        // TODO: not nice
+        DefaultProtocolProvider.getInstance().registerProtocol("testhttp", testhttp);
         try {
             this.server.setHttpService(new VirtualHostService());
             this.client.getHostConfiguration().setHost(host, port, "testhttp");

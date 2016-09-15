@@ -46,6 +46,7 @@ import org.apache.commons.httpclient.params.HttpConnectionParams;
 import org.apache.commons.httpclient.protocol.Protocol;
 import org.apache.commons.httpclient.protocol.ProtocolSocketFactory;
 import org.apache.commons.httpclient.protocol.ControllerThreadSocketFactory;
+import org.apache.commons.httpclient.protocol.DefaultProtocolProvider;
 
 /**
  *
@@ -81,7 +82,7 @@ public class TestHttpConnection extends HttpClientTestBase {
     public void testConstructThenClose() {
 		this.server.setHttpService(new EchoService());
         HttpConnection conn = new HttpConnection(
-				this.server.getLocalAddress(), this.server.getLocalPort());
+				this.server.getLocalAddress(), this.server.getLocalPort(), DefaultProtocolProvider.getInstance());
         conn.close();
         assertTrue(!conn.isOpen());
     }
@@ -93,7 +94,7 @@ public class TestHttpConnection extends HttpClientTestBase {
             "timeout",
             new DelayedProtocolSocketFactory(
                 500, 
-                Protocol.getProtocol("http").getSocketFactory()
+                DefaultProtocolProvider.getInstance().getProtocol("http").getSocketFactory()
             ),
 			this.server.getLocalPort()
         );
@@ -101,7 +102,7 @@ public class TestHttpConnection extends HttpClientTestBase {
         NoHostHttpConnectionManager connectionManager = new NoHostHttpConnectionManager();
         connectionManager.setConnection(
 				new HttpConnection(
-						this.server.getLocalAddress(), this.server.getLocalPort(), testProtocol));
+						this.server.getLocalAddress(), this.server.getLocalPort(), testProtocol, DefaultProtocolProvider.getInstance()));
         this.client.setHttpConnectionManager(connectionManager);
         client.getHostConfiguration().setHost(
 				this.server.getLocalAddress(), this.server.getLocalPort(), testProtocol);
@@ -126,13 +127,13 @@ public class TestHttpConnection extends HttpClientTestBase {
             "timeout",
             new DelayedProtocolSocketFactory(
                 500, 
-                Protocol.getProtocol("http").getSocketFactory()
+                DefaultProtocolProvider.getInstance().getProtocol("http").getSocketFactory()
             ),
 			this.server.getLocalPort()
         );
 
         HttpConnection conn = new HttpConnection(
-				this.server.getLocalAddress(), this.server.getLocalPort(), testProtocol);
+				this.server.getLocalAddress(), this.server.getLocalPort(), testProtocol, DefaultProtocolProvider.getInstance());
         // 1 ms is short enough to make this fail
         conn.getParams().setConnectionTimeout(1);
         try {
@@ -146,7 +147,7 @@ public class TestHttpConnection extends HttpClientTestBase {
 
     public void testForIllegalStateExceptions() {
         HttpConnection conn = new HttpConnection(
-				this.server.getLocalAddress(), this.server.getLocalPort());
+				this.server.getLocalAddress(), this.server.getLocalPort(), DefaultProtocolProvider.getInstance());
         try {
             OutputStream out = conn.getRequestOutputStream();
             fail("getRequestOutputStream did not throw the expected exception");

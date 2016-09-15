@@ -69,7 +69,7 @@ public class Protocol {
      * 
      * @see #getProtocol(String)
      */
-    public static void registerProtocol(String id, Protocol protocol) {
+    private static void registerProtocol(String id, Protocol protocol) {
 
         if (id == null) {
             throw new IllegalArgumentException("id is null");
@@ -104,7 +104,7 @@ public class Protocol {
      * 
      * @throws IllegalStateException if a protocol with the ID cannot be found
      */
-    public static Protocol getProtocol(String id) 
+    private static Protocol getProtocol(String id) 
         throws IllegalStateException {
 
         if (id == null) {

@@ -31,7 +31,9 @@
 package org.apache.commons.httpclient;
 
 import org.apache.commons.httpclient.params.HostParams;
+import org.apache.commons.httpclient.protocol.DefaultProtocolProvider;
 import org.apache.commons.httpclient.protocol.Protocol;
+import org.apache.commons.httpclient.protocol.ProtocolProvider;
 import org.apache.commons.httpclient.util.LangUtils;
 
 import java.net.InetAddress;
@@ -68,6 +70,9 @@ public class HostConfiguration implements Cloneable {
     /** Parameters specific to this host */
     private HostParams params = new HostParams();
 
+    /** ProtocolProvider */
+    private ProtocolProvider protocolProvider = DefaultProtocolProvider.getInstance();
+    
     /**
      * Constructor for HostConfiguration.
      */
@@ -101,6 +106,7 @@ public class HostConfiguration implements Cloneable {
                 }
                 this.localAddress = hostConfiguration.getLocalAddress();
                 this.params = (HostParams)hostConfiguration.getParams().clone();
+                this.protocolProvider = hostConfiguration.protocolProvider;
             } catch (CloneNotSupportedException e) {
                 throw new IllegalArgumentException("Host configuration could not be cloned");
             }
@@ -250,7 +256,7 @@ public class HostConfiguration implements Cloneable {
      * @param protocol The protocol.
      */
     public synchronized void setHost(final String host, int port, final String protocol) {
-        this.host = new HttpHost(host, port, Protocol.getProtocol(protocol));
+        this.host = new HttpHost(host, port, protocolProvider.getProtocol(protocol));
     }
     
     /**
@@ -293,7 +299,7 @@ public class HostConfiguration implements Cloneable {
      * @param port The port
      */
     public synchronized void setHost(final String host, int port) {
-        setHost(host, port, Protocol.getProtocol("http"));
+        setHost(host, port, protocolProvider.getProtocol("http"));
     }
     
     /**
@@ -302,7 +308,7 @@ public class HostConfiguration implements Cloneable {
      * @param host The host(IP or DNS name).
      */
     public synchronized void setHost(final String host) {
-        Protocol defaultProtocol = Protocol.getProtocol("http"); 
+        Protocol defaultProtocol = protocolProvider.getProtocol("http"); 
         setHost(host, defaultProtocol.getDefaultPort(), defaultProtocol);
     }
     
@@ -412,7 +418,7 @@ public class HostConfiguration implements Cloneable {
      * @param proxyPort The proxy port
      */
     public synchronized void setProxy(final String proxyHost, int proxyPort) {
-        this.proxyHost = new ProxyHost(proxyHost, proxyPort); 
+        this.proxyHost = new ProxyHost(proxyHost, proxyPort, protocolProvider.getProtocol("http")); 
     }
 
     /**
@@ -492,6 +498,14 @@ public class HostConfiguration implements Cloneable {
         }
         this.params = params;
     }
+    
+    public ProtocolProvider getProtocolProvider() {
+		return protocolProvider;
+	}
+    
+    public void setProtocolProvider(ProtocolProvider protocolProvider) {
+		this.protocolProvider = protocolProvider;
+	}
 
     /**
      * @see java.lang.Object#equals(java.lang.Object)

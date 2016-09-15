@@ -42,6 +42,7 @@ import org.apache.commons.httpclient.HttpStatus;
 import org.apache.commons.httpclient.HttpVersion;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.httpclient.params.HostParams;
+import org.apache.commons.httpclient.protocol.DefaultProtocolProvider;
 import org.apache.commons.httpclient.protocol.Protocol;
 import org.apache.commons.httpclient.server.HttpService;
 import org.apache.commons.httpclient.server.SimpleRequest;
@@ -113,7 +114,7 @@ public class TestHttpParams extends HttpClientTestBase {
         hostconfig.setHost(
                 this.server.getLocalAddress(), 
 	            this.server.getLocalPort(),
-	            Protocol.getProtocol("http"));
+	            DefaultProtocolProvider.getInstance().getProtocol("http"));
         hostconfig.getParams().setParameter(HostParams.DEFAULT_HEADERS, defaults);
         
         GetMethod httpget = new GetMethod("/miss/");
@@ -138,7 +139,7 @@ public class TestHttpParams extends HttpClientTestBase {
         hostconfig.setHost(
                 this.server.getLocalAddress(), 
                 this.server.getLocalPort(),
-                Protocol.getProtocol("http"));
+                DefaultProtocolProvider.getInstance().getProtocol("http"));
         
         GetMethod httpget = new GetMethod("/miss/");
         try {

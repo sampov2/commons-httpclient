@@ -37,6 +37,7 @@ import junit.framework.Test;
 import junit.framework.TestSuite;
 
 import org.apache.commons.httpclient.methods.GetMethod;
+import org.apache.commons.httpclient.protocol.DefaultProtocolProvider;
 import org.apache.commons.httpclient.protocol.Protocol;
 import org.apache.commons.httpclient.server.HttpService;
 import org.apache.commons.httpclient.server.SimpleRequest;
@@ -189,7 +190,7 @@ public class TestHeaderOps extends HttpClientTestBase {
             this.client.executeMethod(get);
             Header hostHeader = get.getRequestHeader("Host");
             assertTrue(hostHeader != null);
-            if (port == Protocol.getProtocol("http").getDefaultPort()) {
+            if (port == DefaultProtocolProvider.getInstance().getProtocol("http").getDefaultPort()) {
                 // no port information should be in the value
                 assertTrue(hostHeader.getValue().equals(ip));
             } else {
@@ -210,7 +211,7 @@ public class TestHeaderOps extends HttpClientTestBase {
             this.client.executeMethod(get);
             Header hostHeader = get.getRequestHeader("Host");
             assertTrue(hostHeader != null);
-            if (port == Protocol.getProtocol("http").getDefaultPort()) {
+            if (port == DefaultProtocolProvider.getInstance().getProtocol("http").getDefaultPort()) {
                 // no port information should be in the value
                 assertTrue(hostHeader.getValue().equals(hostname));
             } else {

@@ -26,6 +26,7 @@
 package org.apache.commons.httpclient;
 
 
+import org.apache.commons.httpclient.protocol.DefaultProtocolProvider;
 import org.apache.commons.httpclient.protocol.Protocol; 
 import junit.framework.*;
 
@@ -58,14 +59,14 @@ public class TestRequestLine extends TestCase {
 
     public void testRequestLineGeneral() throws Exception {
         
-        HttpConnection conn = new HttpConnection("localhost", 80);
+        HttpConnection conn = new HttpConnection("localhost", 80, DefaultProtocolProvider.getInstance());
         FakeHttpMethod method = new FakeHttpMethod();
         assertEquals("Simple / HTTP/1.1\r\n", method.generateRequestLine(conn, HttpVersion.HTTP_1_1));
 
         method = new FakeHttpMethod("stuff");
         assertEquals("Simple stuff HTTP/1.1\r\n", method.generateRequestLine(conn, HttpVersion.HTTP_1_1));
 
-        conn = new HttpConnection("proxy", 8080, "localhost", 80, Protocol.getProtocol("http"));
+        conn = new HttpConnection("proxy", 8080, "localhost", 80, DefaultProtocolProvider.getInstance().getProtocol("http"), DefaultProtocolProvider.getInstance());
 
         method = new FakeHttpMethod();
         assertEquals("Simple http://localhost/ HTTP/1.1\r\n", method.generateRequestLine(conn, HttpVersion.HTTP_1_1));
@@ -73,7 +74,7 @@ public class TestRequestLine extends TestCase {
         method = new FakeHttpMethod("stuff");
         assertEquals("Simple http://localhost/stuff HTTP/1.1\r\n", method.generateRequestLine(conn, HttpVersion.HTTP_1_1));
 
-        conn = new HttpConnection("proxy", 8080, "localhost", -1, Protocol.getProtocol("http"));
+        conn = new HttpConnection("proxy", 8080, "localhost", -1, DefaultProtocolProvider.getInstance().getProtocol("http"), DefaultProtocolProvider.getInstance());
 
         method = new FakeHttpMethod();
         assertEquals("Simple http://localhost/ HTTP/1.1\r\n", method.generateRequestLine(conn, HttpVersion.HTTP_1_1));
@@ -81,7 +82,7 @@ public class TestRequestLine extends TestCase {
         method = new FakeHttpMethod("stuff");
         assertEquals("Simple http://localhost/stuff HTTP/1.1\r\n", method.generateRequestLine(conn, HttpVersion.HTTP_1_1));
 
-        conn = new HttpConnection("proxy", 8080, "localhost", 666, Protocol.getProtocol("http"));
+        conn = new HttpConnection("proxy", 8080, "localhost", 666, DefaultProtocolProvider.getInstance().getProtocol("http"), DefaultProtocolProvider.getInstance());
 
         method = new FakeHttpMethod();
         assertEquals("Simple http://localhost:666/ HTTP/1.1\r\n", method.generateRequestLine(conn, HttpVersion.HTTP_1_1));
@@ -91,7 +92,7 @@ public class TestRequestLine extends TestCase {
     }
 
     public void testRequestLineQuery() throws Exception {
-        HttpConnection conn = new HttpConnection("localhost", 80);
+        HttpConnection conn = new HttpConnection("localhost", 80, DefaultProtocolProvider.getInstance());
 
         FakeHttpMethod method = new FakeHttpMethod();
         method.setQueryString( new NameValuePair[] {
@@ -103,7 +104,7 @@ public class TestRequestLine extends TestCase {
     }
 
     public void testRequestLinePath() throws Exception {
-        HttpConnection conn = new HttpConnection("localhost", 80);
+        HttpConnection conn = new HttpConnection("localhost", 80, DefaultProtocolProvider.getInstance());
 
         FakeHttpMethod method = new FakeHttpMethod();
         method.setPath("/some%20stuff/");

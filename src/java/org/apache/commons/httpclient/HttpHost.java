@@ -31,6 +31,7 @@
 package org.apache.commons.httpclient;
 
 import org.apache.commons.httpclient.protocol.Protocol;
+import org.apache.commons.httpclient.protocol.ProtocolProvider;
 import org.apache.commons.httpclient.util.LangUtils;
 
 /**
@@ -85,8 +86,8 @@ public class HttpHost implements Cloneable {
      * @param hostname the hostname (IP or DNS name). Can be <code>null</code>.
      * @param port the port. Value <code>-1</code> can be used to set default protocol port
      */
-    public HttpHost(final String hostname, int port) {
-        this(hostname, port, Protocol.getProtocol("http"));
+    public HttpHost(final String hostname, int port, ProtocolProvider protocolProvider) {
+        this(hostname, port, protocolProvider.getProtocol("http"));
     }
     
     /**
@@ -94,8 +95,8 @@ public class HttpHost implements Cloneable {
      *   
      * @param hostname the hostname (IP or DNS name). Can be <code>null</code>.
      */
-    public HttpHost(final String hostname) {
-        this(hostname, -1, Protocol.getProtocol("http"));
+    public HttpHost(final String hostname, ProtocolProvider protocolProvider) {
+        this(hostname, -1, protocolProvider.getProtocol("http"));
     }
     
     /**
@@ -103,8 +104,8 @@ public class HttpHost implements Cloneable {
      *   
      * @param uri the URI.
      */
-    public  HttpHost(final URI uri) throws URIException {
-        this(uri.getHost(), uri.getPort(), Protocol.getProtocol(uri.getScheme()));
+    public  HttpHost(final URI uri, ProtocolProvider protocolProvider) throws URIException {
+        this(uri.getHost(), uri.getPort(), protocolProvider.getProtocol(uri.getScheme()));
     }
 
     /**

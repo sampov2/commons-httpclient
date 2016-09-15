@@ -1161,7 +1161,7 @@ public class MultiThreadedHttpConnectionManager implements HttpConnectionManager
          * @param connection the connection to be wrapped
          */
         public HttpConnectionAdapter(HttpConnection connection) {
-            super(connection.getHost(), connection.getPort(), connection.getProtocol());
+            super(connection.getHost(), connection.getPort(), connection.getProtocol(), connection.getProtocolProvider());
             this.wrappedConnection = connection;
         }
 

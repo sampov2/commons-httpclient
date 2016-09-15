@@ -31,6 +31,7 @@
 
 package org.apache.commons.httpclient;
 
+import org.apache.commons.httpclient.protocol.DefaultProtocolProvider;
 import org.apache.commons.httpclient.protocol.Protocol;
 
 import junit.framework.Test;
@@ -68,7 +69,7 @@ public class TestRequestHeaders extends TestCase {
     }
 
     public void testHostHeaderPortHTTP80() throws Exception {
-        HttpConnection conn = new HttpConnection("some.host.name", 80);
+        HttpConnection conn = new HttpConnection("some.host.name", 80, DefaultProtocolProvider.getInstance());
         HttpState state = new HttpState();
         FakeHttpMethod method = new FakeHttpMethod();
         method.addRequestHeaders(state, conn);
@@ -76,7 +77,7 @@ public class TestRequestHeaders extends TestCase {
     }
 
     public void testHostHeaderPortHTTP81() throws Exception {
-        HttpConnection conn = new HttpConnection("some.host.name", 81);
+        HttpConnection conn = new HttpConnection("some.host.name", 81, DefaultProtocolProvider.getInstance());
         HttpState state = new HttpState();
         FakeHttpMethod method = new FakeHttpMethod();
         method.addRequestHeaders(state, conn);
@@ -85,7 +86,7 @@ public class TestRequestHeaders extends TestCase {
 
     public void testHostHeaderPortHTTPS443() throws Exception {
         HttpConnection conn = new HttpConnection("some.host.name", 443, 
-                Protocol.getProtocol("https"));
+        		DefaultProtocolProvider.getInstance().getProtocol("https"), DefaultProtocolProvider.getInstance());
         HttpState state = new HttpState();
         FakeHttpMethod method = new FakeHttpMethod();
         method.addRequestHeaders(state, conn);
@@ -94,7 +95,7 @@ public class TestRequestHeaders extends TestCase {
 
     public void testHostHeaderPortHTTPS444() throws Exception {
         HttpConnection conn = new HttpConnection("some.host.name", 444, 
-                Protocol.getProtocol("https"));
+        		DefaultProtocolProvider.getInstance().getProtocol("https"), DefaultProtocolProvider.getInstance());
         HttpState state = new HttpState();
         FakeHttpMethod method = new FakeHttpMethod();
         method.addRequestHeaders(state, conn);

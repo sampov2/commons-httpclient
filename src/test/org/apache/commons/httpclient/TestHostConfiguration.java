@@ -35,6 +35,7 @@ import junit.framework.Test;
 import junit.framework.TestSuite;
 
 import org.apache.commons.httpclient.methods.GetMethod;
+import org.apache.commons.httpclient.protocol.DefaultProtocolProvider;
 import org.apache.commons.httpclient.protocol.Protocol;
 import org.apache.commons.httpclient.server.SimpleProxy;
 
@@ -66,7 +67,7 @@ public class TestHostConfiguration extends HttpClientTestBase {
         this.client.getHostConfiguration().setHost(
                 this.server.getLocalAddress(), 
                 this.server.getLocalPort(),
-                Protocol.getProtocol("http"));
+                DefaultProtocolProvider.getInstance().getProtocol("http"));
         
         GetMethod httpget = new GetMethod("/test/");
         try {

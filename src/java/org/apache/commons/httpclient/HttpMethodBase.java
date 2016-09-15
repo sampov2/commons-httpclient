@@ -43,7 +43,9 @@ import org.apache.commons.httpclient.cookie.CookieSpec;
 import org.apache.commons.httpclient.cookie.CookieVersionSupport;
 import org.apache.commons.httpclient.cookie.MalformedCookieException;
 import org.apache.commons.httpclient.params.HttpMethodParams;
+import org.apache.commons.httpclient.protocol.DefaultProtocolProvider;
 import org.apache.commons.httpclient.protocol.Protocol;
+import org.apache.commons.httpclient.protocol.ProtocolProvider;
 import org.apache.commons.httpclient.util.EncodingUtil;
 import org.apache.commons.httpclient.util.ExceptionUtil;
 import org.apache.commons.logging.Log;
@@ -159,6 +161,8 @@ public abstract class HttpMethodBase implements HttpMethod {
     /** the host for this HTTP method, can be null */
     private HttpHost httphost = null;
 
+    private ProtocolProvider protocolProvider = DefaultProtocolProvider.getInstance();
+    
     /**
      * Handles method retries
      * 
@@ -277,7 +281,7 @@ public abstract class HttpMethodBase implements HttpMethod {
     public void setURI(URI uri) throws URIException {
         // only set the host if specified by the URI
         if (uri.isAbsoluteURI()) {
-            this.httphost = new HttpHost(uri);
+            this.httphost = new HttpHost(uri, getProtocolProvider());
         }
         // set the path, defaulting to root
         setPath(
@@ -2550,5 +2554,13 @@ public abstract class HttpMethodBase implements HttpMethod {
     public boolean isRequestSent() {
         return this.requestSent;
     }
+    
+    public ProtocolProvider getProtocolProvider() {
+		return protocolProvider;
+	}
+    
+    public void setProtocolProvider(ProtocolProvider protocolProvider) {
+		this.protocolProvider = protocolProvider;
+	}
     
 }

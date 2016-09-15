@@ -35,6 +35,7 @@ import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
+import org.apache.commons.httpclient.protocol.DefaultProtocolProvider;
 import org.apache.commons.httpclient.protocol.Protocol;
 import org.apache.commons.httpclient.protocol.ProtocolSocketFactory;
 import org.apache.commons.httpclient.server.SimpleHttpServer;
@@ -103,7 +104,7 @@ public class HttpClientTestBase extends TestCase {
                     (ProtocolSocketFactory)new SimpleSSLTestProtocolSocketFactory(), 443);
         } else {
             serversocketfactory = new SimplePlainSocketFactory(); 
-            testhttp = Protocol.getProtocol("http"); 
+            testhttp = DefaultProtocolProvider.getInstance().getProtocol("http"); 
         }
 
         this.server = new SimpleHttpServer(serversocketfactory, 0); // use arbitrary port

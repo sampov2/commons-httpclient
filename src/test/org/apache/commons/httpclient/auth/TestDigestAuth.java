@@ -38,6 +38,7 @@ import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpStatus;
 import org.apache.commons.httpclient.HttpVersion;
 import org.apache.commons.httpclient.UsernamePasswordCredentials;
+import org.apache.commons.httpclient.protocol.DefaultProtocolProvider;
 import org.apache.commons.httpclient.protocol.Protocol;
 import org.apache.commons.httpclient.server.HttpService;
 import org.apache.commons.httpclient.server.RequestLine;
@@ -325,7 +326,7 @@ public class TestDigestAuth extends TestCase {
         HttpClient client = new HttpClient();
         client.getHostConfiguration().setHost(
                 server.getLocalAddress(), server.getLocalPort(),
-                Protocol.getProtocol("http"));
+                DefaultProtocolProvider.getInstance().getProtocol("http"));
         
         client.getState().setCredentials(AuthScope.ANY, 
                 new UsernamePasswordCredentials("username","password"));

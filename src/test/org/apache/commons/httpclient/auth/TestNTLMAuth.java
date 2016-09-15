@@ -42,6 +42,7 @@ import org.apache.commons.httpclient.HttpStatus;
 import org.apache.commons.httpclient.HttpVersion;
 import org.apache.commons.httpclient.NTCredentials;
 import org.apache.commons.httpclient.methods.GetMethod;
+import org.apache.commons.httpclient.protocol.DefaultProtocolProvider;
 import org.apache.commons.httpclient.protocol.Protocol;
 import org.apache.commons.httpclient.server.HttpService;
 import org.apache.commons.httpclient.server.RequestLine;
@@ -157,7 +158,7 @@ public class TestNTLMAuth extends HttpClientTestBase {
         // configure the client
         this.client.getHostConfiguration().setHost(
                 server.getLocalAddress(), server.getLocalPort(),
-                Protocol.getProtocol("http"));
+                DefaultProtocolProvider.getInstance().getProtocol("http"));
         
         this.client.getState().setCredentials(AuthScope.ANY, 
                 new NTCredentials("username", "password", "host", "domain"));

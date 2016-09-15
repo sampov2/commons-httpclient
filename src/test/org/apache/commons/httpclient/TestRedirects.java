@@ -38,6 +38,7 @@ import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.commons.httpclient.methods.StringRequestEntity;
 import org.apache.commons.httpclient.params.HttpClientParams;
+import org.apache.commons.httpclient.protocol.DefaultProtocolProvider;
 import org.apache.commons.httpclient.protocol.Protocol;
 import org.apache.commons.httpclient.server.HttpService;
 import org.apache.commons.httpclient.server.RequestLine;
@@ -456,7 +457,7 @@ public class TestRedirects extends HttpClientTestBase {
         hostconfig.setHost(
                 thatserver.getLocalAddress(), 
                 thatserver.getLocalPort(),
-                Protocol.getProtocol("http"));
+                DefaultProtocolProvider.getInstance().getProtocol("http"));
 
         GetMethod httpget = new GetMethod("/oldlocation/");
         httpget.setFollowRedirects(true);

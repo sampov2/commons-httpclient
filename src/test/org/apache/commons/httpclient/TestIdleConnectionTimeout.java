@@ -34,6 +34,7 @@ import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
 import org.apache.commons.httpclient.params.HttpConnectionManagerParams;
+import org.apache.commons.httpclient.protocol.DefaultProtocolProvider;
 import org.apache.commons.httpclient.util.IdleConnectionHandler;
 import org.apache.commons.httpclient.util.IdleConnectionTimeoutThread;
 
@@ -178,7 +179,7 @@ public class TestIdleConnectionTimeout extends TestCase {
         private boolean closed = false;;
         
         public TimeoutHttpConnection() {
-            super("fake-host", 80);
+            super("fake-host", 80, DefaultProtocolProvider.getInstance());
         }
         
         /**

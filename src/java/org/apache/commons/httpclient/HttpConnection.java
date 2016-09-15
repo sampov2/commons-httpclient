@@ -43,6 +43,7 @@ import java.net.SocketException;
 
 import org.apache.commons.httpclient.params.HttpConnectionParams;
 import org.apache.commons.httpclient.protocol.Protocol;
+import org.apache.commons.httpclient.protocol.ProtocolProvider;
 import org.apache.commons.httpclient.protocol.ProtocolSocketFactory;
 import org.apache.commons.httpclient.protocol.SecureProtocolSocketFactory;
 import org.apache.commons.httpclient.util.EncodingUtil;
@@ -94,14 +95,17 @@ public class HttpConnection {
 
     // ----------------------------------------------------------- Constructors
 
+	private ProtocolProvider protocolProvider;
+	
     /**
      * Creates a new HTTP connection for the given host and port.
      *
      * @param host the host to connect to
      * @param port the port to connect to
      */
-    public HttpConnection(String host, int port) {
-        this(null, -1, host, null, port, Protocol.getProtocol("http"));
+    public HttpConnection(String host, int port, ProtocolProvider protocolProvider) {
+    	
+        this(null, -1, host, null, port, protocolProvider.getProtocol("http"), protocolProvider);
     }
 
     /**
@@ -112,8 +116,8 @@ public class HttpConnection {
      * @param port the port to connect to
      * @param protocol the protocol to use
      */
-    public HttpConnection(String host, int port, Protocol protocol) {
-        this(null, -1, host, null, port, protocol);
+    public HttpConnection(String host, int port, Protocol protocol, ProtocolProvider protocolProvider) {
+        this(null, -1, host, null, port, protocol, protocolProvider);
     }
 
     /**
@@ -125,8 +129,8 @@ public class HttpConnection {
      * @param port the port to connect to
      * @param protocol the protocol to use
      */
-    public HttpConnection(String host, String virtualHost, int port, Protocol protocol) {
-        this(null, -1, host, virtualHost, port, protocol);
+    public HttpConnection(String host, String virtualHost, int port, Protocol protocol, ProtocolProvider protocolProvider) {
+        this(null, -1, host, virtualHost, port, protocol, protocolProvider);
     }
 
     /**
@@ -142,8 +146,9 @@ public class HttpConnection {
         String proxyHost,
         int proxyPort,
         String host,
-        int port) {
-        this(proxyHost, proxyPort, host, null, port, Protocol.getProtocol("http"));
+        int port,
+        ProtocolProvider protocolProvider) {
+        this(proxyHost, proxyPort, host, null, port, protocolProvider.getProtocol("http"), protocolProvider);
     }
 
     /**
@@ -156,7 +161,8 @@ public class HttpConnection {
              hostConfiguration.getProxyPort(),
              hostConfiguration.getHost(),
              hostConfiguration.getPort(),
-             hostConfiguration.getProtocol());
+             hostConfiguration.getProtocol(),
+             hostConfiguration.getProtocolProvider());
         this.localAddress = hostConfiguration.getLocalAddress();
     }
 
@@ -180,8 +186,9 @@ public class HttpConnection {
         String host,
         String virtualHost,
         int port,
-        Protocol protocol) {
-    	this(proxyHost, proxyPort, host, port, protocol);
+        Protocol protocol,
+        ProtocolProvider protocolProvider) {
+    	this(proxyHost, proxyPort, host, port, protocol, protocolProvider);
     }
 
     /**
@@ -200,7 +207,8 @@ public class HttpConnection {
         int proxyPort,
         String host,
         int port,
-        Protocol protocol) {
+        Protocol protocol,
+        ProtocolProvider protocolProvider) {
 
         if (host == null) {
             throw new IllegalArgumentException("host parameter is null");
@@ -214,6 +222,7 @@ public class HttpConnection {
         hostName = host;
         portNumber = protocol.resolvePort(port);
         protocolInUse = protocol;
+        this.protocolProvider = protocolProvider;
     }
 
     // ------------------------------------------ Attribute Setters and Getters
@@ -699,7 +708,7 @@ public class HttpConnection {
                 // proxied connection
                 ProtocolSocketFactory socketFactory = null;
                 if (isSecure() && isProxied()) {
-                    Protocol defaultprotocol = Protocol.getProtocol("http");
+                    Protocol defaultprotocol = protocolProvider.getProtocol("http");
                     socketFactory = defaultprotocol.getSocketFactory();
                 } else {
                     socketFactory = this.protocolInUse.getSocketFactory();
@@ -1164,6 +1173,14 @@ public class HttpConnection {
     public void setHttpConnectionManager(HttpConnectionManager httpConnectionManager) {
         this.httpConnectionManager = httpConnectionManager;
     }
+    
+    public void setProtocolProvider(ProtocolProvider protocolProvider) {
+		this.protocolProvider = protocolProvider;
+	}
+    
+    public ProtocolProvider getProtocolProvider() {
+		return protocolProvider;
+	}
 
     /**
      * Releases the connection. If the connection is locked or does not have a connection

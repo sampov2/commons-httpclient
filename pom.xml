@@ -2,9 +2,9 @@
 <project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>commons-httpclient</groupId>
+  <groupId>sampov2</groupId>
   <artifactId>commons-httpclient</artifactId>
-  <version>3.1</version>
+  <version>3.1.0-SNAPSHOT</version>
   <name>HttpClient</name>
   <description>The HttpClient  component supports the client-side of RFC 1945 (HTTP/1.0)  and RFC 2616 (HTTP/1.1) , several related specifications (RFC 2109 (Cookies) , RFC 2617 (HTTP Authentication) , etc.), and provides a framework by which new request types (methods) or HTTP extensions can be created easily.</description>
   <url>http://jakarta.apache.org/httpcomponents/httpclient-3.x/</url>
@@ -21,6 +21,16 @@
     </license>
   </licenses>
   <developers>
+    <developer>
+      <id>sampov2</id>
+      <name>Sampo Savolainen</name>
+      <email>sampo.savolainen -at- spatineo.com</email>
+      <organization></organization>
+      <roles>
+        <role>Release Prime</role>
+        <role>Java Developer</role>
+      </roles>
+    </developer>
     <developer>
       <id>mbecke</id>
       <name>Michael Becke</name>
@@ -171,43 +181,11 @@
       <email>mikael.wikstrom -at- it.su.se</email>
     </contributor>
   </contributors>
-  <mailingLists>
-    <mailingList>
-      <name>HttpComponents Developer List</name>
-      <subscribe>httpcomponents-dev-subscribe@jakarta.apache.org</subscribe>
-      <unsubscribe>httpcomponents-dev-unsubscribe@jakarta.apache.org</unsubscribe>
-      <archive>http://mail-archives.apache.org/mod_mbox/jakarta-httpcomponents-dev/</archive>
-    </mailingList>
-    <mailingList>
-      <name>HttpClient User List</name>
-      <subscribe>httpclient-user-subscribe@jakarta.apache.org</subscribe>
-      <unsubscribe>httpclient-user-unsubscribe@jakarta.apache.org</unsubscribe>
-      <archive>http://mail-archives.apache.org/mod_mbox/jakarta-httpclient-user/</archive>
-    </mailingList>
-  </mailingLists>
   <scm>
-    <connection>scm:svn:http://svn.apache.org/repos/asf/jakarta/httpcomponents/oac.hc3x/trunk</connection>
-    <url>http://svn.apache.org/repos/asf/jakarta/httpcomponents/oac.hc3x/trunk</url>
+    <connection>scm:git:git@github.com:sampov2/commons-httpclient.git</connection>
+    <developerConnection>scm:git:git@github.com:sampov2/commons-httpclient.git</developerConnection>
+    <url>git@github.com:sampov2/commons-httpclient.git</url>
   </scm>
-  <issueManagement>
-    <url>http://issues.apache.org/jira/browse/HTTPCLIENT</url>
-  </issueManagement>
-  <ciManagement>
-    <notifiers>
-      <notifier>
-        <configuration>
-          <address>httpcomponents-dev@jakarta.apache.org</address>
-        </configuration>
-      </notifier>
-    </notifiers>
-  </ciManagement>
-  <distributionManagement>
-    <site>
-      <id>default</id>
-      <name>Default Site</name>
-      <url>scp://people.apache.org/www/jakarta.apache.org/httpcomponents/httpclient-3.x/</url>
-    </site>
-  </distributionManagement>
   <dependencies>
     <dependency>
       <groupId>junit</groupId>
@@ -331,4 +309,15 @@
       </plugin>
     </plugins>
   </reporting>
+  <distributionManagement>
+    <repository>
+      <id>release-dropbox</id>
+      <url>file:///home/v2/Dropbox/Spatineo/maven</url>
+    </repository>
+    <snapshotRepository>
+      <id>snapshot-dropbox</id>
+      <url>file:///home/v2/Dropbox/Spatineo/maven</url>
+      <uniqueVersion>false</uniqueVersion>
+    </snapshotRepository>
+  </distributionManagement>
 </project>

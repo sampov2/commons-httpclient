@@ -38,6 +38,7 @@ import org.apache.commons.httpclient.HttpMethodBase;
 import org.apache.commons.httpclient.HttpState;
 import org.apache.commons.httpclient.ProtocolException;
 import org.apache.commons.httpclient.params.HttpMethodParams;
+import org.apache.commons.httpclient.protocol.ProtocolProvider;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -91,7 +92,11 @@ public class HeadMethod extends HttpMethodBase {
      * @since 1.0
      */
     public HeadMethod(String uri) {
-        super(uri);
+    	this(uri, null);
+    }
+    
+    public HeadMethod(String uri, ProtocolProvider protocolProvider) {
+        super(uri, protocolProvider);
         setFollowRedirects(true);
     }
 

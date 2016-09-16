@@ -30,6 +30,8 @@
 
 package org.apache.commons.httpclient.methods;
 
+import org.apache.commons.httpclient.protocol.ProtocolProvider;
+
 /**
  * Implements the HTTP PUT method.
  * <p>
@@ -74,6 +76,10 @@ public class PutMethod extends EntityEnclosingMethod {
      */
     public PutMethod(String uri) {
         super(uri);
+    }
+    
+    public PutMethod(String uri, ProtocolProvider protocolProvider) {
+        super(uri, protocolProvider);
     }
 
     // --------------------------------------------------------- Public Methods

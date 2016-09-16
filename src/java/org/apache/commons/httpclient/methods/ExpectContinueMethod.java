@@ -37,6 +37,7 @@ import org.apache.commons.httpclient.HttpMethodBase;
 import org.apache.commons.httpclient.HttpState;
 import org.apache.commons.httpclient.HttpVersion;
 import org.apache.commons.httpclient.params.HttpMethodParams;
+import org.apache.commons.httpclient.protocol.ProtocolProvider;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -90,7 +91,11 @@ public abstract class ExpectContinueMethod extends HttpMethodBase {
      * @since 2.0
      */
     public ExpectContinueMethod(String uri) {
-        super(uri);
+        this(uri, null);
+    }
+    
+    public ExpectContinueMethod(String uri, ProtocolProvider protocolProvider) {
+        super(uri, protocolProvider);
     }
 
     /**

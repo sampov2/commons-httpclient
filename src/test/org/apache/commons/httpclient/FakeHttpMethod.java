@@ -42,7 +42,7 @@ public class FakeHttpMethod extends HttpMethodBase{
 	}
 
 	public FakeHttpMethod(String path){
-		super(path);
+		super(path, null);
 	}
 
 	public String getName() {

@@ -31,6 +31,7 @@
 package org.apache.commons.httpclient;
 
 import org.apache.commons.httpclient.methods.GetMethod;
+import org.apache.commons.httpclient.protocol.DefaultProtocolProvider;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
@@ -243,7 +244,7 @@ public class TestURI extends TestCase {
         String unescaped = "http://some.host.com/A.html";
         URI u1 = new URI(escaped, true);
         GetMethod method = new GetMethod();
-        method.setURI(u1);
+        method.setURI(u1, DefaultProtocolProvider.getInstance());
         URI u2 = method.getURI();
 
         assertEquals(escaped, u1.toString());

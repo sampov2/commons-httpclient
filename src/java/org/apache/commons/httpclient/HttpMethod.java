@@ -35,6 +35,7 @@ import java.io.InputStream;
 
 import org.apache.commons.httpclient.auth.AuthState;
 import org.apache.commons.httpclient.params.HttpMethodParams;
+import org.apache.commons.httpclient.protocol.ProtocolProvider;
 
 /**
  * <p>
@@ -114,7 +115,7 @@ public interface HttpMethod {
      * 
      * @since 3.0
      */
-    void setURI(URI uri) throws URIException;
+    void setURI(URI uri, ProtocolProvider protocolProvider) throws URIException;
 
     /**
      * Defines how strictly the method follows the HTTP protocol specification.  

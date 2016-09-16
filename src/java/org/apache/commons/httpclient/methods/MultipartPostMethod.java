@@ -43,6 +43,7 @@ import org.apache.commons.httpclient.HttpState;
 import org.apache.commons.httpclient.methods.multipart.FilePart;
 import org.apache.commons.httpclient.methods.multipart.Part;
 import org.apache.commons.httpclient.methods.multipart.StringPart;
+import org.apache.commons.httpclient.protocol.ProtocolProvider;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -102,6 +103,10 @@ public class MultipartPostMethod extends ExpectContinueMethod {
      */
     public MultipartPostMethod(String uri) {
         super(uri);
+    }
+    
+    public MultipartPostMethod(String uri, ProtocolProvider protocolProvider) {
+    	super(uri, protocolProvider);
     }
 
     /**

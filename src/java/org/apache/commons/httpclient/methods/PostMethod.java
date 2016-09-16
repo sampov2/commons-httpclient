@@ -34,6 +34,7 @@ import java.util.Iterator;
 import java.util.Vector;
 
 import org.apache.commons.httpclient.NameValuePair;
+import org.apache.commons.httpclient.protocol.ProtocolProvider;
 import org.apache.commons.httpclient.util.EncodingUtil;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -104,6 +105,10 @@ public class PostMethod extends EntityEnclosingMethod {
      */
     public PostMethod(String uri) {
         super(uri);
+    }
+
+    public PostMethod(String uri, ProtocolProvider protocolProvider) {
+        super(uri, protocolProvider);
     }
 
     // ----------------------------------------------------- Instance Methods

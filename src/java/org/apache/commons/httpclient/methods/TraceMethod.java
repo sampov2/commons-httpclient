@@ -31,6 +31,7 @@
 package org.apache.commons.httpclient.methods;
 
 import org.apache.commons.httpclient.HttpMethodBase;
+import org.apache.commons.httpclient.protocol.ProtocolProvider;
 
 /**
  * Implements the HTTP TRACE method.
@@ -69,7 +70,11 @@ public class TraceMethod extends HttpMethodBase {
      * 
      */
     public TraceMethod(String uri) {
-        super(uri);
+    	this(uri, null);
+    }
+    
+    public TraceMethod(String uri, ProtocolProvider protocolProvider) {
+        super(uri, protocolProvider);
         setFollowRedirects(false);
     }
 

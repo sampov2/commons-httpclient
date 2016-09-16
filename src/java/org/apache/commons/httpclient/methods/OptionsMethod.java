@@ -34,7 +34,7 @@ import org.apache.commons.httpclient.Header;
 import org.apache.commons.httpclient.HttpConnection;
 import org.apache.commons.httpclient.HttpMethodBase;
 import org.apache.commons.httpclient.HttpState;
-
+import org.apache.commons.httpclient.protocol.ProtocolProvider;
 import org.apache.commons.logging.LogFactory;
 import org.apache.commons.logging.Log;
 import java.util.Enumeration;
@@ -93,7 +93,11 @@ public class OptionsMethod
      * @since 1.0
      */
     public OptionsMethod(String uri) {
-        super(uri);
+        this(uri, null);
+    }
+    
+    public OptionsMethod(String uri, ProtocolProvider protocolProvider) {
+    	super(uri, protocolProvider);
     }
 
 

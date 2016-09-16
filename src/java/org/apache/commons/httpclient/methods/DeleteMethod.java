@@ -31,6 +31,7 @@
 package org.apache.commons.httpclient.methods;
 
 import org.apache.commons.httpclient.HttpMethodBase;
+import org.apache.commons.httpclient.protocol.ProtocolProvider;
 
 
 /**
@@ -76,7 +77,11 @@ public class DeleteMethod
      * @since 1.0
      */
     public DeleteMethod(String uri) {
-        super(uri);
+    	this(uri, null);
+    }
+    
+    public DeleteMethod(String uri, ProtocolProvider protocolProvider) {
+        super(uri, protocolProvider);
     }
 
 

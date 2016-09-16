@@ -42,6 +42,7 @@ import org.apache.commons.httpclient.HttpException;
 import org.apache.commons.httpclient.HttpState;
 import org.apache.commons.httpclient.HttpVersion;
 import org.apache.commons.httpclient.ProtocolException;
+import org.apache.commons.httpclient.protocol.ProtocolProvider;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -117,6 +118,11 @@ public abstract class EntityEnclosingMethod extends ExpectContinueMethod {
      */
     public EntityEnclosingMethod(String uri) {
         super(uri);
+        setFollowRedirects(false);
+    }
+    
+    public EntityEnclosingMethod(String uri, ProtocolProvider protocolProvider) {
+        super(uri, protocolProvider);
         setFollowRedirects(false);
     }
 

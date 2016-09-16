@@ -161,8 +161,6 @@ public abstract class HttpMethodBase implements HttpMethod {
     /** the host for this HTTP method, can be null */
     private HttpHost httphost = null;
 
-    private ProtocolProvider protocolProvider = DefaultProtocolProvider.getInstance();
-    
     /**
      * Handles method retries
      * 
@@ -211,9 +209,13 @@ public abstract class HttpMethodBase implements HttpMethod {
      * @throws IllegalArgumentException when URI is invalid
      * @throws IllegalStateException when protocol of the absolute URI is not recognised
      */
-    public HttpMethodBase(String uri) 
+    public HttpMethodBase(String uri, ProtocolProvider protocolProvider) 
         throws IllegalArgumentException, IllegalStateException {
 
+    	if (protocolProvider == null) {
+    		protocolProvider = DefaultProtocolProvider.getInstance();
+    	}
+    	
         try {
 
             // create a URI and allow for null/empty uri values
@@ -221,7 +223,7 @@ public abstract class HttpMethodBase implements HttpMethod {
                 uri = "/";
             }
             String charset = getParams().getUriCharset();
-            setURI(new URI(uri, true, charset));
+            setURI(new URI(uri, true, charset), protocolProvider);
         } catch (URIException e) {
             throw new IllegalArgumentException("Invalid uri '" 
                 + uri + "': " + e.getMessage() 
@@ -278,10 +280,10 @@ public abstract class HttpMethodBase implements HttpMethod {
      * 
      * @since 3.0
      */
-    public void setURI(URI uri) throws URIException {
+    public void setURI(URI uri, ProtocolProvider protocolProvider) throws URIException {
         // only set the host if specified by the URI
         if (uri.isAbsoluteURI()) {
-            this.httphost = new HttpHost(uri, getProtocolProvider());
+            this.httphost = new HttpHost(uri, protocolProvider);
         }
         // set the path, defaulting to root
         setPath(
@@ -2554,13 +2556,5 @@ public abstract class HttpMethodBase implements HttpMethod {
     public boolean isRequestSent() {
         return this.requestSent;
     }
-    
-    public ProtocolProvider getProtocolProvider() {
-		return protocolProvider;
-	}
-    
-    public void setProtocolProvider(ProtocolProvider protocolProvider) {
-		this.protocolProvider = protocolProvider;
-	}
     
 }

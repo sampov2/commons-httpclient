@@ -31,6 +31,7 @@
 package org.apache.commons.httpclient.methods;
 
 import org.apache.commons.httpclient.HttpMethodBase;
+import org.apache.commons.httpclient.protocol.ProtocolProvider;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -86,7 +87,11 @@ public class GetMethod extends HttpMethodBase {
      * @since 1.0
      */
     public GetMethod(String uri) {
-        super(uri);
+    	this(uri, null);
+    }
+    
+    public GetMethod(String uri, ProtocolProvider protocolProvider) {
+        super(uri, protocolProvider);
         LOG.trace("enter GetMethod(String)");
         setFollowRedirects(true);
     }

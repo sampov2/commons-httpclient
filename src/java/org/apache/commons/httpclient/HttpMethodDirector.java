@@ -613,7 +613,7 @@ class HttpMethodDirector {
                 // Reset the default params
                 method.getParams().setDefaults(this.params);
             }
-            method.setURI(redirectUri);
+            method.setURI(redirectUri, hostConfiguration.getProtocolProvider());
             hostConfiguration.setHost(redirectUri);
 		} catch (URIException ex) {
             throw new InvalidRedirectLocationException(

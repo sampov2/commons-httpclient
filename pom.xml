@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>sampov2</groupId>
   <artifactId>commons-httpclient</artifactId>
-  <version>3.1.0-SNAPSHOT</version>
+  <version>3.1.0</version>
   <name>HttpClient</name>
   <description>The HttpClient  component supports the client-side of RFC 1945 (HTTP/1.0)  and RFC 2616 (HTTP/1.1) , several related specifications (RFC 2109 (Cookies) , RFC 2617 (HTTP Authentication) , etc.), and provides a framework by which new request types (methods) or HTTP extensions can be created easily.</description>
   <url>http://jakarta.apache.org/httpcomponents/httpclient-3.x/</url>
@@ -25,7 +24,7 @@
       <id>sampov2</id>
       <name>Sampo Savolainen</name>
       <email>sampo.savolainen -at- spatineo.com</email>
-      <organization></organization>
+      <organization />
       <roles>
         <role>Release Prime</role>
         <role>Java Developer</role>
@@ -35,7 +34,7 @@
       <id>mbecke</id>
       <name>Michael Becke</name>
       <email>mbecke -at- apache.org</email>
-      <organization></organization>
+      <organization />
       <roles>
         <role>Release Prime</role>
         <role>Java Developer</role>
@@ -65,7 +64,7 @@
       <name>Ortwin Glueck</name>
       <email>oglueck -at- apache.org</email>
       <url>http://www.odi.ch/</url>
-      <organization></organization>
+      <organization />
       <roles>
         <role>Java Developer</role>
       </roles>
@@ -74,7 +73,7 @@
       <id>jericho</id>
       <name>Sung-Gu</name>
       <email>jericho -at- apache.org</email>
-      <organization></organization>
+      <organization />
       <roles>
         <role>Java Developer</role>
       </roles>
@@ -126,7 +125,7 @@
     </contributor>
     <contributor>
       <name>Ola Berg</name>
-      <email></email>
+      <email />
     </contributor>
     <contributor>
       <name>Sam Berlin</name>
@@ -134,7 +133,7 @@
     </contributor>
     <contributor>
       <name>Mike Bowler</name>
-      <email></email>
+      <email />
     </contributor>
     <contributor>
       <name>Samit Jain</name>
